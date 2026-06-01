@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/*
+ * Brand design rail for the post-código landing.
+ * Dark, terminal-ish aesthetic. These tokens are the contract the
+ * agentic pipeline should build the real landing against.
+ */
+@theme {
+  --color-terminal-bg: #0a0e0f;
+  --color-terminal-surface: #11181a;
+  --color-terminal-fg: #e6f1ef;
+  --color-terminal-muted: #7d8c89;
+  --color-terminal-accent: #2ce6c1;
+  --color-terminal-accent-alt: #6ef08a;
+
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--color-terminal-bg);
+  color: var(--color-terminal-fg);
+}
