@@ -32,5 +32,5 @@
   pilares, nombres, sin duplicación).
 - [x] 3.2 Typecheck del diff (`pnpm exec tsc --noEmit`) y lint/format del diff
   (`pnpm exec biome check --write` solo sobre los ficheros tocados) en verde.
-- [ ] 3.3 Suite de tests (componente + e2e) en verde.
-- [ ] 3.4 Auditoría de diseño / visual sobre la home en los 3 viewports (fase funcional).
+- [x] 3.3 Suite de tests (componente + e2e) en verde.
+- [x] 3.4 Auditoría de diseño / visual sobre la home en los 3 viewports (fase funcional).
