@@ -26,7 +26,7 @@ export function HeroTitle() {
           <motion.span
             // biome-ignore lint/suspicious/noArrayIndexKey: tokens are a fixed, order-stable list
             key={index}
-            initial={reduceMotion ? false : { opacity: 0, y: "0.25em" }}
+            initial={{ opacity: 0, y: "0.25em" }}
             animate={{ opacity: 1, y: 0 }}
             transition={
               reduceMotion

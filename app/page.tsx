@@ -11,7 +11,7 @@ export default function HomePage() {
   const reduceMotion = useReducedMotion();
 
   const fadeUp = (delay: number) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 12 },
+    initial: { opacity: 0, y: 12 },
     animate: { opacity: 1, y: 0 },
     transition: reduceMotion ? { duration: 0 } : { duration: 0.5, delay, ease: "easeOut" as const },
   });
@@ -46,7 +46,7 @@ export default function HomePage() {
         data-testid="hero-scroll-indicator"
         aria-hidden="true"
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-terminal-muted"
-        initial={reduceMotion ? false : { opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={reduceMotion ? { duration: 0 } : { duration: 0.5, delay: 1.2 }}
       >
