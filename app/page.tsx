@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { HeroTitle } from "./_components/hero-title";
+import { SilentChangesSection } from "./_components/silent-changes-section";
 import { WhenToUseSection } from "./_components/when-to-use-section";
 
 const SUBTITLE = "Cómo la IA está reescribiendo nuestro oficio mientras lo vivimos.";
@@ -42,6 +43,8 @@ export default function HomePage() {
       >
         {AUTHOR}
       </motion.p>
+
+      <SilentChangesSection />
 
       <WhenToUseSection />
 
