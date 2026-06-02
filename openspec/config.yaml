@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Landing web de la charla "Bienvenidos a la era post-código" de Jorge Martín Lopes
+  (AI Software Architect, Sopra Steria) en la CommitConf 2026. Sitio estático de marketing
+  con estética de terminal.
+
+  Stack:
+    - Next.js 16 (App Router) + React 19, renderizado en `app/`
+    - Tailwind CSS v4 con design tokens en `app/globals.css` (familia `terminal-*`:
+      terminal-bg, terminal-surface, terminal-fg, terminal-muted, terminal-accent,
+      terminal-accent-alt) y `--font-mono`
+    - Animaciones con `motion/react`
+    - Tests unit/componente: Vitest + Testing Library (`*.test.tsx`)
+    - Tests e2e/visuales: Playwright (`tests/e2e/`), viewports 375 / 768 / 1280
+    - Lint/format: Biome
+
+  Convenciones:
+    - Documentación y proposals en español; identificadores de código en inglés.
+    - El copy visible de la web es en español (es la charla en español).
+    - Selectores de test estables: `data-testid` en los nodos que los tests consultan.
+    - Respetar `prefers-reduced-motion: reduce` (sin animaciones, contenido completo al instante).
+    - Accesibilidad: el texto íntegro de títulos animados siempre presente para lectores de pantalla.
+
+rules:
+  proposal:
+    - Idioma español
+    - Incluir sección "Non-goals" / fuera de alcance
+    - Cada CA-N del refinamiento mapea al menos a un Requirement (ADDED o MODIFIED)
+    - Escenarios de specs con formato "#### Scenario: <nombre>", bloques WHEN/THEN y SHALL/MUST normativo
+  tasks:
+    - Idioma español
+    - Cada task deja el repo en verde (vitest, biome, tsc, openspec validate)
