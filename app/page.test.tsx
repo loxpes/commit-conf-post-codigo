@@ -88,4 +88,15 @@ describe("HomePage", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveAccessibleName(FULL_TITLE);
   });
+
+  it("CA-1: composes the harness section after the hero in document order", () => {
+    render(<HomePage />);
+
+    const hero = screen.getByRole("heading", { level: 1 });
+    const harness = screen.getByRole("heading", { name: "El arnés" });
+
+    expect(
+      hero.compareDocumentPosition(harness) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
 });
