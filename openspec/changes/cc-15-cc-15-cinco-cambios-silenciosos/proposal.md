@@ -25,7 +25,7 @@ La landing de la charla carece de la sección que presenta los cinco pilares del
 - `app/page.tsx`: montaje del nuevo componente.
 - `app/_components/silent-changes-section.tsx` (nuevo).
 - Dependencia `motion/react` ya presente (`package.json`).
-- Tests: nuevas suites Vitest (unit) y Playwright (e2e).
+- Tests: nuevas suites Vitest (unit) y Playwright (e2e); `vitest.setup.ts` actualizado con mock de `IntersectionObserver` requerido por `motion/react` en jsdom.
 - No hay cambios de API, base de datos ni infraestructura.
 
 ## Non-goals

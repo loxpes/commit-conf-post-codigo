@@ -5,13 +5,7 @@ import { expect, test } from "@playwright/test";
  * Evidence sink for the tester phase. Screenshots are written here (outside the
  * Playwright `test-results/` churn) so the pipeline can attach them to the card.
  */
-const EVIDENCE_DIR = path.resolve(
-  process.cwd(),
-  "..",
-  ".pipeline",
-  "tmp",
-  "evidence",
-);
+const EVIDENCE_DIR = path.resolve(process.cwd(), "..", ".pipeline", "tmp", "evidence");
 
 const SECTION = "[data-testid='silent-changes-section']";
 const CARD = "[data-testid^='silent-change-card-']";
@@ -39,9 +33,63 @@ test("CA-2.1 the 5 silent-change cards become visible after scrolling to the sec
 
   for (let i = 0; i < 5; i++) {
     await expect(cards.nth(i)).toBeVisible();
-    const opacity = await cards.nth(i).evaluate((el) =>
-      Number(window.getComputedStyle(el as HTMLElement).opacity),
-    );
+    const opacity = await cards
+      .nth(i)
+      .evaluate((el) => Number(window.getComputedStyle(el as HTMLElement).opacity));
+    expect(opacity).toBeGreaterThan(0.99);
+  }
+});
+
+// CA-3 — with prefers-reduced-motion: reduce, intro and cards are immediately visible.
+test("CA-3 intro and cards are immediately visible with prefers-reduced-motion: reduce", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const section = page.locator(SECTION);
+  await section.scrollIntoViewIfNeeded();
+  await expect(section).toBeVisible();
+
+  await expect(
+    page.getByText(
+      "Cinco cambios silenciosos. Ya están aquí, aunque nadie los esté nombrando todavía.",
+    ),
+  ).toBeVisible();
+
+  const cards = page.locator(CARD);
+  await expect(cards).toHaveCount(5);
+  for (let i = 0; i < 5; i++) {
+    await expect(cards.nth(i)).toBeVisible();
+    const opacity = await cards
+      .nth(i)
+      .evaluate((el) => Number(window.getComputedStyle(el as HTMLElement).opacity));
+    expect(opacity).toBeGreaterThan(0.99);
+  }
+});
+
+// CA-2.2 — after the animation fires once, scrolling away and back keeps cards visible (once:true).
+test("CA-2.2 cards stay visible after scrolling out and back into viewport (once: true)", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const section = page.locator(SECTION);
+  await section.scrollIntoViewIfNeeded();
+
+  const cards = page.locator(CARD);
+  await expect(cards).toHaveCount(5);
+  for (let i = 0; i < 5; i++) {
+    await expect(cards.nth(i)).toBeVisible();
+  }
+
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await section.scrollIntoViewIfNeeded();
+
+  for (let i = 0; i < 5; i++) {
+    const opacity = await cards
+      .nth(i)
+      .evaluate((el) => Number(window.getComputedStyle(el as HTMLElement).opacity));
     expect(opacity).toBeGreaterThan(0.99);
   }
 });
@@ -57,7 +105,7 @@ test("CA-4.1 no horizontal overflow at 375px and cards stacked in a single colum
   await expect(page.locator(SECTION)).toBeVisible();
 
   const noOverflow = await page.evaluate(
-    () => document.documentElement.scrollWidth === window.innerWidth,
+    () => document.documentElement.scrollWidth <= window.innerWidth,
   );
   expect(noOverflow).toBeTruthy();
 
@@ -87,7 +135,7 @@ test("CA-4.2 cards lay out in 2+ columns and no horizontal overflow at >=768px",
   await expect(page.locator(SECTION)).toBeVisible();
 
   const noOverflow = await page.evaluate(
-    () => document.documentElement.scrollWidth === window.innerWidth,
+    () => document.documentElement.scrollWidth <= window.innerWidth,
   );
   expect(noOverflow).toBeTruthy();
 
