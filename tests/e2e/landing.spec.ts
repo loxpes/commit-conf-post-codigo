@@ -39,3 +39,22 @@ test("landing renders the post-código hero and captures a full-page screenshot"
     fullPage: true,
   });
 });
+
+/**
+ * "¿Cuándo usar qué?" section (cc-17). Asserts the section is visible below the
+ * hero and that adding it introduces no horizontal overflow at the configured
+ * viewports (375 / 768 / 1280 are driven by the Playwright projects).
+ */
+test("when-to-use section is visible with no horizontal overflow", async ({ page }) => {
+  await page.goto("/");
+
+  const section = page.getByTestId("when-to-use");
+  await expect(section).toBeVisible();
+  await expect(page.getByRole("heading", { name: "¿Cuándo usar qué?" })).toBeVisible();
+  await expect(page.getByTestId("when-to-use-row")).toHaveCount(7);
+
+  const hasNoHorizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth <= window.innerWidth + 1,
+  );
+  expect(hasNoHorizontalOverflow).toBeTruthy();
+});
