@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
 
 const INTRO = "Cinco cambios silenciosos. Ya están aquí, aunque nadie los esté nombrando todavía.";
 
@@ -39,23 +38,20 @@ const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -10% 0px" } as cons
  */
 export function SilentChangesSection() {
   const reduceMotion = useReducedMotion();
-  const [animate, setAnimate] = useState(false);
 
-  useEffect(() => {
-    if (!reduceMotion && typeof IntersectionObserver !== "undefined") {
-      setAnimate(true);
-    }
-  }, [reduceMotion]);
-
+  // `initial` is read only once at mount, so it is fixed here from
+  // `reduceMotion` (no post-mount flag/double-render). Reduced motion renders
+  // the content complete and instant; otherwise the cards start hidden and
+  // reveal in a staggered way the first time they scroll into view.
   const entrance = (delay: number) =>
-    animate
-      ? {
+    reduceMotion
+      ? { initial: VISIBLE, animate: VISIBLE, transition: { duration: 0 } }
+      : {
           initial: { opacity: 0, y: 16 },
           whileInView: VISIBLE,
           viewport: VIEWPORT,
           transition: { duration: 0.4, delay, ease: "easeOut" as const },
-        }
-      : { initial: VISIBLE, animate: VISIBLE, transition: { duration: 0 } };
+        };
 
   return (
     <section
