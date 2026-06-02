@@ -29,6 +29,11 @@ test("landing renders the post-código hero and captures a full-page screenshot"
     ),
   ).toBeVisible();
 
+  const harness = page.getByTestId("harness-section");
+  await harness.scrollIntoViewIfNeeded();
+  await expect(harness).toBeVisible();
+  await expect(page.getByRole("heading", { name: "El arnés" })).toBeVisible();
+
   const hasNoHorizontalOverflow = await page.evaluate(
     () => document.documentElement.scrollWidth <= window.innerWidth + 1,
   );
