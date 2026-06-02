@@ -89,3 +89,25 @@ describe("HomePage", () => {
     expect(heading).toHaveAccessibleName(FULL_TITLE);
   });
 });
+
+describe("HomePage when-to-use placement", () => {
+  beforeEach(() => {
+    mockMatchMedia(() => false);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("CA-1: renders the when-to-use section after the hero in DOM order", () => {
+    render(<HomePage />);
+
+    const hero = screen.getByTestId("hero-title");
+    const whenToUse = screen.getByTestId("when-to-use");
+
+    expect(whenToUse).toBeInTheDocument();
+
+    const relation = hero.compareDocumentPosition(whenToUse);
+    expect(relation & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+});
