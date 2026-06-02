@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { HeroTitle } from "./_components/hero-title";
+import { WhenToUseSection } from "./_components/when-to-use-section";
 
 const SUBTITLE = "Cómo la IA está reescribiendo nuestro oficio mientras lo vivimos.";
 const AUTHOR =
@@ -41,6 +42,8 @@ export default function HomePage() {
       >
         {AUTHOR}
       </motion.p>
+
+      <WhenToUseSection />
 
       <motion.div
         data-testid="hero-scroll-indicator"
