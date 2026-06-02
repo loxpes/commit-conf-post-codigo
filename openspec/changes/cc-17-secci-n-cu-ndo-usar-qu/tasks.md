@@ -49,7 +49,7 @@
 
 ## 6. Quality gate
 
-- [ ] 6.1 Ejecutar la batería completa en verde: `pnpm exec vitest run`,
+- [x] 6.1 Ejecutar la batería completa en verde: `pnpm exec vitest run`,
   `pnpm exec biome check --write` (solo el diff), `pnpm exec tsc --noEmit`,
   `openspec validate "cc-17-secci-n-cu-ndo-usar-qu" --strict` y la suite Playwright
   (viewports 375 / 768 / 1280)
