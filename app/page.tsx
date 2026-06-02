@@ -1,6 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import Arnes from "./arnes";
+import CincoCambios from "./cinco-cambios";
+import FooterCierre from "./footer-cierre";
 import { HeroTitle } from "./_components/hero-title";
 import { WhenToUseSection } from "./_components/when-to-use-section";
 
@@ -43,7 +46,13 @@ export default function HomePage() {
         {AUTHOR}
       </motion.p>
 
+      <CincoCambios />
+
+      <Arnes />
+
       <WhenToUseSection />
+
+      <FooterCierre />
 
       <motion.div
         data-testid="hero-scroll-indicator"
