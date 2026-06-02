@@ -37,12 +37,12 @@
 - [x] 5.1 RED: test que falla afirmando que con `prefers-reduced-motion: reduce` se muestra el
   título completo y el resto del contenido de inmediato, sin animaciones
 - [x] 5.2 GREEN: hacer gating de todas las animaciones por reduced motion hasta pasar el test
-- [ ] 5.3 Verificar responsive sin overflow horizontal en 375 / 768 / 1280 (ajustar Playwright e2e
+- [x] 5.3 Verificar responsive sin overflow horizontal en 375 / 768 / 1280 (ajustar Playwright e2e
   `tests/e2e/landing.spec.ts` al copy/selectores nuevos)
 
 ## 6. Quality gate
 
-- [ ] 6.1 Ejecutar la batería completa en verde: `pnpm exec vitest run`,
+- [x] 6.1 Ejecutar la batería completa en verde: `pnpm exec vitest run`,
   `pnpm exec biome check --write` (solo el diff), `pnpm exec tsc --noEmit`,
   `openspec validate "cc-14-hero-bienvenidos-a-la-era-post" --strict` y la suite Playwright
   (viewports 375 / 768 / 1280)
