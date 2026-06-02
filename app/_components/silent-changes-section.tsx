@@ -17,37 +17,31 @@ const PILLARS = [
 ] as const;
 
 const VISIBLE = { opacity: 1, y: 0 } as const;
+const HIDDEN = { opacity: 0, y: 16 } as const;
 const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -10% 0px" } as const;
 
 /**
  * «Los 5 cambios silenciosos» home section.
  *
- * The textual content of the intro and every card is rendered directly inside
- * the animated `motion` nodes, so it is ALWAYS present in the DOM and exposed
- * to assistive tech regardless of animation state (CA-5). Unlike the hero
- * title, the animated layer is NOT `aria-hidden`: here the visible text itself
- * carries the accessible name, so hiding it would strip it from screen readers.
- *
- * The cards reveal in a staggered way the first time the section scrolls into
- * view via `whileInView` + `viewport: { once: true }`, so they never re-animate
- * on re-entry and stay visible afterwards (CA-2). The entrance is only enabled
- * after mount when motion is allowed and `IntersectionObserver` is available;
- * otherwise (reduced motion, SSR, or environments without the observer) the
- * intro and all cards render complete and instant from first paint, with no
- * entrance animation and no looping animations (CA-3).
+ * The intro and every card's text live directly inside the `motion` nodes, so
+ * the full content is always in the DOM and exposed to assistive tech whatever
+ * the animation state (CA-5) — the animated layer is never `aria-hidden`. Cards
+ * reveal once, staggered, the first time the section scrolls into view via
+ * `whileInView` + `viewport: { once: true }` (CA-2); with reduced motion they
+ * render complete and instant instead (CA-3).
  */
 export function SilentChangesSection() {
   const reduceMotion = useReducedMotion();
 
-  // `initial` is read only once at mount, so it is fixed here from
-  // `reduceMotion` (no post-mount flag/double-render). Reduced motion renders
-  // the content complete and instant; otherwise the cards start hidden and
-  // reveal in a staggered way the first time they scroll into view.
+  // `initial` is read once at mount and kept identical (HIDDEN) for SSR and
+  // client, so a reduced-motion client (which the server can't detect) does not
+  // trigger a hydration mismatch. Reduced motion then reveals instantly via
+  // `animate`; otherwise the cards reveal on scroll.
   const entrance = (delay: number) =>
     reduceMotion
-      ? { initial: VISIBLE, animate: VISIBLE, transition: { duration: 0 } }
+      ? { initial: HIDDEN, animate: VISIBLE, transition: { duration: 0 } }
       : {
-          initial: { opacity: 0, y: 16 },
+          initial: HIDDEN,
           whileInView: VISIBLE,
           viewport: VIEWPORT,
           transition: { duration: 0.4, delay, ease: "easeOut" as const },
