@@ -44,8 +44,6 @@ const NEXT_STEPS: readonly NextStep[] = [
 const PIPELINE_NOTE =
   "Esta web la construyó un pipeline de agentes — ni una línea la tecleó un humano. CommitConf 2026.";
 
-const QR_URL = "https://commitconf.com/post-codigo";
-
 const FOOTER_LINE = "commit · post-código · jorge martín";
 
 export default function FooterCierre() {
@@ -144,28 +142,6 @@ export default function FooterCierre() {
           height={1320}
           className="h-auto w-60 rounded-xl border border-terminal-muted/40 shadow-lg sm:w-72"
         />
-      </motion.div>
-
-      <motion.div
-        {...fadeUp(0.65)}
-        data-testid="footer-qr"
-        className="flex flex-col items-center gap-3"
-      >
-        <a
-          href={QR_URL}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Código QR hacia ${QR_URL}`}
-          className="group flex h-40 w-40 items-center justify-center border border-dashed border-terminal-muted/50 bg-terminal-bg/60 text-terminal-muted outline-none transition-colors hover:border-terminal-accent hover:text-terminal-accent focus-visible:border-terminal-accent focus-visible:text-terminal-accent sm:h-44 sm:w-44"
-        >
-          <span className="text-xs tracking-[0.3em] uppercase">QR</span>
-        </a>
-        <span className="text-xs tracking-wide text-terminal-muted/80">
-          <span aria-hidden="true" className="text-terminal-accent">
-            $
-          </span>{" "}
-          {QR_URL}
-        </span>
       </motion.div>
 
       <motion.footer
