@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import ArbolClaude from "./arbol-claude";
 import Arnes from "./arnes";
+import BajoElCapo from "./bajo-el-capo";
 import CincoCambios from "./cinco-cambios";
 import FooterCierre from "./footer-cierre";
 import { HeroTitle } from "./_components/hero-title";
@@ -51,6 +53,10 @@ export default function HomePage() {
       <Arnes />
 
       <WhenToUseSection />
+
+      <BajoElCapo />
+
+      <ArbolClaude />
 
       <FooterCierre />
 
