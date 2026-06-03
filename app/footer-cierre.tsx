@@ -126,6 +126,27 @@ export default function FooterCierre() {
       </motion.p>
 
       <motion.div
+        {...fadeUp(0.6)}
+        data-testid="footer-linkedin"
+        className="flex flex-col items-center gap-4"
+      >
+        <h2 className="text-sm tracking-[0.25em] text-terminal-muted uppercase">
+          <span aria-hidden="true" className="text-terminal-accent">
+            ${" "}
+          </span>
+          Conecta en LinkedIn
+        </h2>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/jorge-linkedin.jpg"
+          alt="Tarjeta de LinkedIn de Jorge Martín Lopes — Arquitecto de soluciones IA en Sopra Steria"
+          width={1135}
+          height={1320}
+          className="h-auto w-60 rounded-xl border border-terminal-muted/40 shadow-lg sm:w-72"
+        />
+      </motion.div>
+
+      <motion.div
         {...fadeUp(0.65)}
         data-testid="footer-qr"
         className="flex flex-col items-center gap-3"
